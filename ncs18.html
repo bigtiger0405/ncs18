@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <title>NCS18차 - 점수 배열 연산</title>
+    <style>
+      * {
+        margin: 0; padding: 0;
+        font-family: 'Jua', sans-serif; font-size: 30px;
+        color: #222328; text-align: center;
+      }
+      main {
+        width: 80%; height: 50%; margin: 0 auto;
+        display: flex; flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <main></main>
+  </body>
+  <script>
+    const table_list = ["이 름", "국 어", "영 어", "수 학", "합 계", "평 균"];
+    const student_test_result = [
+      ["정대호", 80, 60, 70],
+      ["전수현", 85, 95, 65],
+      ["전수민", 95, 90, 98]
+    ];
+    function sum_avg(result_index) {
+      let result_sum = 0;
+      let grade_count = result_index.length - 1;
+      for(let i=1; i < result_index.length; i++) {
+        result_sum += result_index[i];
+      }
+      result_index.push(result_sum);
+      result_index.push((result_sum/(grade_count)).toFixed(2));
+    }
+    function create_table(test_result) {
+      for(let i=0; i <= test_result.length; i++) {
+        $('main').append($(`<section></section>`).css({display: 'flex', flexDirection: 'row'}));
+        i < test_result.length ? sum_avg(test_result[i]) : false;
+        for(let j=0; j < table_list.length; j++) {
+          if(i < 1) {
+            $(`section:first-child`).append($(`<article>${table_list[j]}</article>`).css({width: '16.66%', backgroundColor: '#FFCAC8'}));
+          } else {
+            $(`section:nth-child(${i+1})`).append($(`<article>${test_result[i-1][j]}</article>`).css({width: '16.66%', borderBottom: '1px solid gray'})); 
+          }
+        }
+      }
+    }
+    create_table(student_test_result);
+  </script>
+</html>
